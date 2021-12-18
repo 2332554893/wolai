@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-Hans-CN"><head><meta charset="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=Edge"/><link rel="stylesheet" type="text/css" href="../../css/modern-norm.min.css"/><link rel="stylesheet" type="text/css" href="../../css/prism.min.css"/><link rel="stylesheet" type="text/css" href="../../css/katex.min.css"/><link rel="stylesheet" type="text/css" href="../../css/wolai.css"/><title>数据库_02_表的查询 - wolai 笔记</title><link rel="shortcut icon" href="data:image/svg+xml,%3Csvg xmlns=&apos;http://www.w3.org/2000/svg&apos; viewBox=&apos;0 0 800 800&apos;%3E%3Cdefs%3E%3Cstyle%3E.cls-1%7Bfill:%23fff;%7D%3C/style%3E%3C/defs%3E%3Cg%3E%3Cpath class=&apos;cls-1&apos; d=&apos;M610.08,0c66,0,90,6.88,114.13,19.79a134.62,134.62,0,0,1,56,56l2.28,4.4C793.93,103,800,127.88,800,189.92V610.08l-.08,11.56c-.78,57.38-7.58,79.89-19.71,102.57a134.62,134.62,0,0,1-56,56l-4.4,2.28C697,793.93,672.12,800,610.08,800H189.92l-11.56-.08c-57.38-.78-79.89-7.58-102.57-19.71a134.62,134.62,0,0,1-56-56l-2.28-4.4C6.44,697.75.4,673.72,0,616L0,189.92c0-66,6.88-90,19.79-114.13a134.62,134.62,0,0,1,56-56l4.4-2.28C102.25,6.44,126.28.4,184,0Z&apos;/%3E%3Cpath d=&apos;M610.08,0c66,0,90,6.88,114.13,19.79a134.62,134.62,0,0,1,56,56l2.28,4.4C793.93,103,800,127.88,800,189.92V610.08l-.08,11.56c-.78,57.38-7.58,79.89-19.71,102.57a134.62,134.62,0,0,1-56,56l-4.4,2.28C697,793.93,672.12,800,610.08,800H189.92l-11.56-.08c-57.38-.78-79.89-7.58-102.57-19.71a134.62,134.62,0,0,1-56-56l-2.28-4.4C6.44,697.75.4,673.72,0,616L0,189.92c0-66,6.88-90,19.79-114.13a134.62,134.62,0,0,1,56-56l4.4-2.28C102.25,6.44,126.28.4,184,0Zm4.72,88.9H185.2L172.42,89c-32.78.62-43.68,3.24-54.71,9.14a45.84,45.84,0,0,0-19.54,19.54c-6.61,12.36-9.11,24.55-9.27,67.49V614.8L89,627.58c.62,32.78,3.24,43.68,9.14,54.71a45.84,45.84,0,0,0,19.54,19.54c12.36,6.61,24.55,9.11,67.49,9.27H610.08c46.79,0,59.41-2.44,72.21-9.28a45.84,45.84,0,0,0,19.54-19.54c6.61-12.36,9.11-24.55,9.27-67.49V189.92c0-46.79-2.44-59.41-9.28-72.21a45.84,45.84,0,0,0-19.54-19.54C669.93,91.56,657.74,89.06,614.8,88.9ZM233.33,493.33A73.34,73.34,0,1,1,160,566.67,73.35,73.35,0,0,1,233.33,493.33Z&apos;/%3E%3C/g%3E%3C/svg%3E"></link></head><body><header><div class="image"></div><div class="title"><div class="banner"><div class="icon"></div></div><div data-title="数据库_02_表的查询" class="main-title"></div></div></header><article><h2 class="wolai-block"><span class="inline-wrap">1.添加记录</span><code-block class="wolai-block"><div class="wolai-pre"><div data-lang="Sql" class="marker"></div><pre><span class="token comment">--添加记录</span>
+<span class="token comment">-- 1、添加记录的一般形式是：insert into 表名（字段名1，。。。。）values(值1，。。。。)</span>
+<span class="token keyword">insert</span> <span class="token keyword">into</span> student<span class="token punctuation">(</span>sno<span class="token punctuation">,</span>sname<span class="token punctuation">,</span>sex<span class="token punctuation">,</span>age<span class="token punctuation">,</span>cls<span class="token punctuation">,</span>addr<span class="token punctuation">)</span>
+<span class="token keyword">values</span><span class="token punctuation">(</span><span class="token string">'2019123456'</span><span class="token punctuation">,</span><span class="token string">'张三'</span><span class="token punctuation">,</span><span class="token string">'女'</span><span class="token punctuation">,</span><span class="token number">20</span><span class="token punctuation">,</span><span class="token string">'19软件工程1班'</span><span class="token punctuation">,</span><span class="token string">'福建省泉州市'</span><span class="token punctuation">)</span>
+<span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> student
+
+<span class="token comment">--省略字段名要保证对应的表的每一列上都要有值，如果没有值用null</span>
+<span class="token keyword">insert</span> <span class="token keyword">into</span> student
+<span class="token keyword">values</span><span class="token punctuation">(</span><span class="token string">'2019123458'</span><span class="token punctuation">,</span><span class="token string">'李四'</span><span class="token punctuation">,</span><span class="token boolean">null</span><span class="token punctuation">,</span><span class="token number">20</span><span class="token punctuation">,</span><span class="token string">'19软件工程1班'</span><span class="token punctuation">,</span><span class="token string">'福建省泉州市'</span><span class="token punctuation">)</span>
+
+  <span class="token comment">--如果要插入多条记录时，记录（）之间用,隔开即可</span>
+<span class="token keyword">insert</span> <span class="token keyword">into</span> student<span class="token punctuation">(</span>sno<span class="token punctuation">,</span>sname<span class="token punctuation">,</span>age<span class="token punctuation">,</span>cls<span class="token punctuation">,</span>addr<span class="token punctuation">)</span>
+<span class="token keyword">values</span><span class="token punctuation">(</span><span class="token string">'2019123463'</span><span class="token punctuation">,</span><span class="token string">'张三'</span><span class="token punctuation">,</span><span class="token number">20</span><span class="token punctuation">,</span><span class="token string">'19软件工程2班'</span><span class="token punctuation">,</span><span class="token string">'福建省泉州市'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">(</span><span class="token string">'2019123460'</span><span class="token punctuation">,</span><span class="token string">'张无忌'</span><span class="token punctuation">,</span><span class="token number">20</span><span class="token punctuation">,</span><span class="token string">'19软件工程3班'</span><span class="token punctuation">,</span><span class="token string">'福建省厦门市'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">(</span><span class="token string">'2019123461'</span><span class="token punctuation">,</span><span class="token string">'张三丰'</span><span class="token punctuation">,</span><span class="token number">30</span><span class="token punctuation">,</span><span class="token string">'19软件工程2班'</span><span class="token punctuation">,</span><span class="token string">'福建省泉州市'</span><span class="token punctuation">)</span>
+</pre></div></code-block></h2><h2 class="wolai-block"><span class="inline-wrap">2.表的查询</span><code-block class="wolai-block"><div class="wolai-pre"><div data-lang="Sql" class="marker"></div><pre><span class="token comment">--表的查询</span>
+  <span class="token comment">-- select 算术表达式，字符串常量，函数，字段名，统配符等</span>
+  <span class="token comment">-- from 表名</span>
+  <span class="token comment">-- where 条件</span>
+  <span class="token comment">-- group by </span>
+  <span class="token comment">-- having</span>
+  <span class="token comment">-- oder by</span>
+  
+  <span class="token comment">--查询所有的记录，select * from 表名</span>
+  <span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> student
+  
+  <span class="token comment">--top n * 表示显示前n条记录</span>
+  <span class="token keyword">select</span> <span class="token keyword">top</span> <span class="token number">5</span> <span class="token operator">*</span> <span class="token keyword">from</span> student
+  <span class="token keyword">select</span> <span class="token keyword">top</span> <span class="token number">5</span> sname <span class="token keyword">from</span> student
+  
+  <span class="token comment">--查询部分字段值，select 字段名,字段名.... from 表名</span>
+ <span class="token keyword">select</span> sname<span class="token punctuation">,</span><span class="token string">'你出生于：'</span> <span class="token punctuation">,</span><span class="token number">2020</span><span class="token operator">-</span>age
+ <span class="token keyword">from</span> student
+  
+  <span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> student
+ <span class="token comment">--substring(需要操作的字符串，int start,int length)</span>
+ <span class="token comment">--获取字符串的子串，start表示开始位置，length表示获取字符的个数 </span>
+  <span class="token keyword">select</span> SUBSTRING<span class="token punctuation">(</span>sno<span class="token punctuation">,</span><span class="token number">9</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token keyword">from</span> student
+  
+  <span class="token comment">--20021034567</span>
+  <span class="token keyword">select</span> SUBSTRING<span class="token punctuation">(</span><span class="token string">'20021034567'</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">)</span>
+  
+  
+  <span class="token comment">--where 查询的条件   &amp;&amp;</span>
+  <span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> student <span class="token keyword">where</span> sex<span class="token operator">=</span><span class="token string">'女'</span> <span class="token operator">and</span> cls<span class="token operator">=</span><span class="token string">'19软件工程2班'</span>
+  <span class="token keyword">select</span> <span class="token function">COUNT</span><span class="token punctuation">(</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token keyword">from</span> login 
+  <span class="token keyword">where</span> username<span class="token operator">=</span><span class="token string">'tom'</span> <span class="token operator">and</span> password<span class="token operator">=</span><span class="token string">'12'</span> <span class="token operator">or</span> <span class="token number">1</span><span class="token operator">=</span><span class="token number">1</span> <span class="token comment">--sql注入 </span>
+  <span class="token keyword">select</span> <span class="token function">COUNT</span><span class="token punctuation">(</span><span class="token keyword">distinct</span> cls<span class="token punctuation">)</span> <span class="token keyword">from</span> student
+  
+  <span class="token comment">--査询价格最高的前3本的书名，价格。</span>
+  <span class="token keyword">select</span> <span class="token keyword">top</span> <span class="token number">3</span>  Name<span class="token punctuation">,</span>Price <span class="token keyword">from</span> books 
+  <span class="token keyword">order</span> <span class="token keyword">by</span> Price <span class="token keyword">desc</span>
+  
+  </pre></div></code-block></h2></article><footer></footer></body></html>
